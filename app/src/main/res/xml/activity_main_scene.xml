@@ -1,60 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
 <MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:motion="http://schemas.android.com/apk/res-auto">
 
-    <ConstraintSet android:id="@+id/start">
-        <Constraint android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:alpha="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:text="Hello World!" />
-    </ConstraintSet>
-
-    <ConstraintSet android:id="@+id/end">
-        <Constraint android:id="@id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:text="Hello World!"
-            android:alpha="1.0"
-    />
-    </ConstraintSet>
-
+    <!-- top to bottom right-->
     <Transition
-        app:constraintSetEnd="@id/end"
-        app:constraintSetStart="@+id/start"
-        app:duration="2000">
+        motion:constraintSetEnd="@id/step2"
+        motion:constraintSetStart="@id/step1"
 
-        <OnSwipe app:touchAnchorId="@id/textView"/>
-
-        <KeyFrameSet>
-            <KeyPosition
-                app:framePosition="50"
-                app:motionTarget="@+id/textView"
-                app:keyPositionType="parentRelative"
-                app:percentX="0.1"/>
-
-            <KeyPosition
-                app:framePosition="20"
-                app:motionTarget="@+id/textView"
-                app:keyPositionType="parentRelative"
-                app:percentX="0.9"/>
-
-            <KeyAttribute
-                app:framePosition="50"
-                app:motionTarget="@+id/textView"
-                android:scaleX="2.0"
-                android:scaleY="2.0"
-                android:rotation="-360"/>
-
-            <KeyAttribute
-                app:framePosition="100"
-                app:motionTarget="@+id/textView"
-                android:rotation="-720"
-            />
-        </KeyFrameSet>
+        motion:duration="500">
+        <OnSwipe
+            motion:dragDirection="dragDown"
+            motion:touchAnchorId="@id/image"
+            motion:touchAnchorSide="top" />
     </Transition>
+    <!-- bottom right to bottom left-->
+    <Transition
+        motion:constraintSetEnd="@id/step3"
+        motion:constraintSetStart="@id/step2"
+
+        motion:duration="500">
+        <OnSwipe
+            motion:dragDirection="dragLeft"
+            motion:touchAnchorId="@id/image"
+            motion:touchAnchorSide="left" />
+    </Transition>
+
+    <!-- bottom left to top-->
+    <Transition
+        motion:constraintSetEnd="@id/step1"
+        motion:constraintSetStart="@id/step3"
+
+        motion:duration="500">
+        <OnSwipe
+            motion:dragDirection="dragUp"
+            motion:touchAnchorId="@id/image"
+            motion:touchAnchorSide="top" />
+    </Transition>
+    <!-- bottom right to top-->
+    <Transition
+        motion:constraintSetEnd="@id/step1"
+        motion:constraintSetStart="@id/step2"
+
+        motion:duration="500">
+        <OnSwipe
+            motion:dragDirection="dragUp"
+            motion:touchAnchorId="@id/image"
+            motion:touchAnchorSide="top" />
+    </Transition>
+    <!-- place the view on top-->
+    <ConstraintSet android:id="@+id/step1">
+        <Constraint
+            android:id="@id/image"
+            android:layout_width="match_parent"
+            android:layout_height="240dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginBottom="0dp"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent">
+            <PropertySet android:alpha="1" />
+        </Constraint>
+    </ConstraintSet>
+    <!-- place the view on bottom right-->
+    <ConstraintSet android:id="@+id/step2">
+        <Constraint
+            android:id="@id/image"
+            android:layout_width="150dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"
+
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent">
+            <PropertySet android:alpha="1" />
+        </Constraint>
+    </ConstraintSet>
+    <!-- place the view on bottom left-->
+    <ConstraintSet android:id="@+id/step3">
+        <Constraint
+            android:id="@id/image"
+            android:layout_width="150dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"
+
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintStart_toStartOf="parent">
+            <PropertySet android:alpha="1" />
+        </Constraint>
+    </ConstraintSet>
+
+
 </MotionScene>
